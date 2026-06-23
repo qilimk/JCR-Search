@@ -9,10 +9,14 @@
   </head>
   <body>
     <header class="topbar">
-      <div>
+      <div class="topbar-brand">
         <span class="app-mark">JCR</span>
         <strong>JCR Search</strong>
       </div>
+      <nav class="topnav" aria-label="Primary lists">
+        <button id="topListButton" type="button">Top 期刊 / 会议</button>
+        <button id="q1ListButton" type="button">Q1 / 1区 期刊 / 会议</button>
+      </nav>
       <div class="topbar-actions">
         <label class="language-control" for="languageSelect">
           <span id="languageLabel">语言</span>
@@ -56,11 +60,6 @@
           <span>中科院</span>
           <span>CCF</span>
           <span>新锐</span>
-        </div>
-
-        <div class="list-actions" aria-label="quick lists">
-          <button id="topListButton" type="button">Top 期刊 / 会议</button>
-          <button id="q1ListButton" type="button">Q1 / 1区 期刊 / 会议</button>
         </div>
 
         <div id="quickExamples" class="quick-examples" aria-label="examples"></div>

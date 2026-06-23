@@ -588,9 +588,14 @@ function renderActiveList() {
 function renderCompactRows(items) {
   return items.map((item) => `
     <button class="compact-row" type="button" data-suggestion="${escapeHtml(item.title)}">
-      <span class="compact-title">${escapeHtml(item.title)}</span>
-      <span class="compact-meta">${escapeHtml(item.marker)} · ${escapeHtml(displayCategory(item.categories[0] || "未分类"))} · ${escapeHtml(item.dataset)}</span>
-      <span class="compact-kind">${escapeHtml(displayKind(item.kind))}</span>
+      <span class="compact-main">
+        <span class="compact-title">${escapeHtml(item.title)}</span>
+        <span class="compact-meta">${escapeHtml(item.dataset)} · ${escapeHtml(item.marker)}</span>
+      </span>
+      <span class="compact-tags">
+        <span class="compact-kind">${escapeHtml(displayKind(item.kind))}</span>
+        ${item.categories.slice(0, 3).map((category) => `<span class="compact-category">${escapeHtml(displayCategory(category))}</span>`).join("")}
+      </span>
     </button>
   `).join("");
 }

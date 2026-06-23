@@ -51,9 +51,10 @@ a {
   position: sticky;
   top: 0;
   z-index: 8;
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(150px, auto) minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
+  gap: 14px;
   min-height: 58px;
   padding: 0 max(16px, calc((100vw - 1180px) / 2));
   border-bottom: 1px solid rgba(234, 217, 221, 0.82);
@@ -61,16 +62,42 @@ a {
   backdrop-filter: blur(14px);
 }
 
-.topbar > div {
+.topbar-brand,
+.topbar-actions {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .topbar-actions {
-  display: flex;
-  align-items: center;
   gap: 8px;
+}
+
+.topnav {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.topnav button {
+  min-height: 38px;
+  border: 1px solid rgba(159, 65, 83, 0.32);
+  border-radius: var(--radius);
+  padding: 0 14px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 13px;
+  font-weight: 850;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.topnav button:hover,
+.topnav button:focus-visible {
+  border-color: var(--accent);
+  background: #f1d6dd;
+  outline: none;
 }
 
 .app-mark {
@@ -367,27 +394,6 @@ input[type="search"]:focus {
   text-align: center;
 }
 
-.list-actions {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.list-actions button {
-  min-height: 44px;
-  border: 1px solid rgba(159, 65, 83, 0.28);
-  border-radius: var(--radius);
-  background: var(--accent-soft);
-  color: var(--accent-strong);
-  font-weight: 800;
-}
-
-.list-actions button:hover {
-  border-color: var(--accent);
-  background: #f1d6dd;
-}
-
 .quick-examples {
   display: flex;
   flex-wrap: wrap;
@@ -537,49 +543,82 @@ input[type="search"]:focus {
 }
 
 .compact-list {
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: #fff;
+  display: grid;
+  gap: 8px;
 }
 
 .compact-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(100px, 140px) minmax(90px, 130px);
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 34%);
   gap: 12px;
-  align-items: center;
+  align-items: start;
   width: 100%;
-  min-height: 48px;
-  padding: 9px 12px;
-  border-bottom: 1px solid var(--line);
-  background: transparent;
+  min-height: 70px;
+  padding: 13px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
   color: var(--ink);
   text-align: left;
-}
-
-.compact-row:last-child {
-  border-bottom: 0;
+  box-shadow: 0 8px 22px rgba(55, 32, 39, 0.05);
 }
 
 .compact-row:hover {
+  border-color: #d5a7b2;
   background: var(--accent-soft);
 }
 
-.compact-title {
+.compact-main,
+.compact-tags {
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-weight: 750;
 }
 
-.compact-meta,
-.compact-kind {
+.compact-main {
+  display: grid;
+  gap: 7px;
+}
+
+.compact-title {
+  overflow-wrap: anywhere;
+  font-size: 15px;
+  font-weight: 750;
+  line-height: 1.35;
+}
+
+.compact-meta {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   color: var(--muted);
   font-size: 12px;
+}
+
+.compact-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.compact-kind,
+.compact-category {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0 8px;
+  background: var(--panel-soft);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.compact-kind {
+  border-color: rgba(159, 65, 83, 0.28);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
 }
 
 .field-table {
@@ -696,6 +735,20 @@ input[type="search"]:focus {
 
 @media (max-width: 860px) {
   .topbar {
+    grid-template-columns: 1fr auto;
+    padding-inline: 10px;
+  }
+
+  .topnav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-content: stretch;
+    padding-bottom: 8px;
+  }
+
+  .topnav button {
+    flex: 1 1 0;
+    min-width: 0;
     padding-inline: 10px;
   }
 
@@ -707,7 +760,7 @@ input[type="search"]:focus {
 
   .search-panel {
     position: sticky;
-    top: 68px;
+    top: 108px;
   }
 
   .results-panel {
@@ -725,7 +778,9 @@ input[type="search"]:focus {
   }
 
   .topbar {
-    min-height: 54px;
+    min-height: 92px;
+    align-content: center;
+    row-gap: 6px;
   }
 
   .toolbar-button span:last-child {
@@ -763,7 +818,7 @@ input[type="search"]:focus {
   }
 
   .search-panel {
-    top: 54px;
+    top: 92px;
     padding: 14px 12px 12px;
     border-bottom: 1px solid var(--line);
   }
@@ -793,7 +848,7 @@ input[type="search"]:focus {
 
   .suggestion-panel {
     position: fixed;
-    top: 112px;
+    top: 150px;
     left: 10px;
     right: 10px;
     max-height: 50vh;
@@ -808,8 +863,10 @@ input[type="search"]:focus {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .list-actions {
-    grid-template-columns: 1fr;
+  .topnav button {
+    min-height: 36px;
+    padding-inline: 8px;
+    font-size: 12px;
   }
 
   .quick-examples {
@@ -844,14 +901,16 @@ input[type="search"]:focus {
 
   .compact-row {
     grid-template-columns: 1fr;
-    gap: 3px;
-    min-height: 58px;
+    gap: 10px;
+    min-height: 78px;
   }
 
-  .compact-title,
-  .compact-meta,
-  .compact-kind {
+  .compact-meta {
     white-space: normal;
+  }
+
+  .compact-tags {
+    justify-content: flex-start;
   }
 
   .field-table,
