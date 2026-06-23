@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#9f4153">
+    <title>JCR Search</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <span class="app-mark">JCR</span>
+        <strong>JCR Search</strong>
+      </div>
+      <div class="topbar-actions">
+        <label class="language-control" for="languageSelect">
+          <span id="languageLabel">语言</span>
+          <select id="languageSelect" aria-label="Language">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+        <button class="toolbar-button" id="settingsButton" type="button" aria-label="选择数据表" title="选择数据表">
+          <span aria-hidden="true">⚙</span>
+          <span id="settingsButtonText">数据表</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-shell">
+      <section class="search-panel" aria-label="JCR Search">
+        <div class="brand-row">
+          <div>
+            <p class="eyebrow">Static Web App</p>
+            <h1>JCR Search</h1>
+          </div>
+        </div>
+
+        <form id="searchForm" class="search-form">
+          <div class="search-field">
+            <input id="journalInput" type="search" autocomplete="off" placeholder="输入期刊、会议、ISSN 或简称" aria-controls="suggestionPanel" autofocus>
+            <div id="suggestionPanel" class="suggestion-panel" role="listbox" aria-label="搜索建议"></div>
+          </div>
+          <button id="searchButton" type="submit">查询</button>
+        </form>
+
+        <div class="status-row">
+          <span id="loadStatus">正在载入数据...</span>
+          <span id="datasetCount"></span>
+        </div>
+        <div class="load-track" aria-hidden="true"><span id="loadProgress"></span></div>
+
+        <div id="searchStats" class="search-stats">
+          <span>JCR</span>
+          <span>中科院</span>
+          <span>CCF</span>
+          <span>新锐</span>
+        </div>
+
+        <div class="list-actions" aria-label="quick lists">
+          <button id="topListButton" type="button">Top 期刊 / 会议</button>
+          <button id="q1ListButton" type="button">Q1 / 1区 期刊 / 会议</button>
+        </div>
+
+        <div id="quickExamples" class="quick-examples" aria-label="examples"></div>
+      </section>
+
+      <section class="results-panel" aria-live="polite">
+        <div class="results-head">
+          <div>
+            <p class="eyebrow">Result</p>
+            <h2 id="resultTitle">等待查询</h2>
+          </div>
+          <button id="clearButton" class="secondary-button" type="button">清空</button>
+        </div>
+        <div id="resultMeta" class="result-meta">可查询 JCR、中科院升级版、预警名单、CCF 与新锐分区数据。</div>
+        <div id="resultHighlights" class="result-highlights"></div>
+        <div id="results" class="results"></div>
+      </section>
+    </main>
+
+    <aside id="settingsDrawer" class="drawer" aria-hidden="true">
+      <div class="drawer-panel">
+        <div class="drawer-head">
+          <div>
+            <p class="eyebrow">Datasets</p>
+            <h2>选择数据表</h2>
+          </div>
+          <button class="icon-button" id="closeSettingsButton" type="button" aria-label="关闭" title="关闭">×</button>
+        </div>
+        <p class="drawer-note">推荐数据表适合日常查询；全选会覆盖历史数据，首次载入和搜索会更重。</p>
+        <div class="drawer-actions">
+          <button id="selectAllButton" type="button" class="secondary-button">全选</button>
+          <button id="selectRecentButton" type="button" class="secondary-button">推荐</button>
+        </div>
+        <div id="datasetList" class="dataset-list"></div>
+      </div>
+    </aside>
+
+    <script src="app.js"></script>
+  </body>
+</html>
